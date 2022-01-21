@@ -1,8 +1,15 @@
 const multisum = function (max) {
-  console.log(max);
+  let total = 0;
+  for (let number_ = 1; number_ <= max; number_ += 1) {
+    if (!(number_ % 3) || !(number_ % 5)) {
+      total += number_;
+    }
+  }
+  return total;
 };
 
-multisum(3); // 3
-multisum(5); // 8
-multisum(10); // 33
-multisum(1000); // 234168
+multisum(5); // ?
+multisum(3); // ?
+multisum(5); // ?
+multisum(10); // ?
+multisum(1000); // ?
