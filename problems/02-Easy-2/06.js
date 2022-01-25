@@ -1,11 +1,6 @@
-/*
- Write a function that returns the next to last word in the String passed to it
- as an argument.
+function penultimate(words) {
+  return words.split(" ")[words.split(" ").length - 2]; //?
+}
 
- Words are any sequence of non-blank characters.
-
- You may assume that the input String will always contain at least two words.
-
- console.log(penultimate("last word") === "last"); // logs true
- console.log(penultimate("Launch School is great!") === "is"); // logs true
-*/
+console.log(penultimate("last word") === "last");
+console.log(penultimate("Launch School is great!") === "is");

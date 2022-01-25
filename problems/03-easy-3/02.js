@@ -1,12 +1,16 @@
-/* Write a function that will take a short line of text, and write it to the console log within a box.
+function logLength(length) {
+  let dashes = [];
+  for (let dash = 0; dash < length; dash++) {
+    dashes.push("-");
+  }
+  return dashes.join("");
+}
 
-logInBox('To boldly go where no one has gone before.');
+function logInBox(string) {
+  const length = string.length;
+  console.log(`+${logLength(length)}+`);
+  console.log(`| ${string} |`);
+  console.log(`+${logLength(length)}+`);
+}
 
-will log on the console:
-
-+--------------------------------------------+
-|                                            |
-| To boldly go where no one has gone before. |
-|                                            |
-+--------------------------------------------+
-*/
+logInBox("To boldly go where no one has gone before.");
