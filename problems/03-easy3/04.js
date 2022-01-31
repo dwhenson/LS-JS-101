@@ -1,4 +1,4 @@
-// TODO:
+// TODO
 
 /*
 The Fibonacci series is a series of numbers (1, 1, 2, 3, 5, 8, 13, 21, ...) such

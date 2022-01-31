@@ -1,4 +1,4 @@
-// TODO:
+// TODO
 
 /*
 Write a function that takes a year as input and returns the century. The return

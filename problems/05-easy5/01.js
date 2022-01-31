@@ -6,7 +6,10 @@
 // seconds in a minute. Note: your results may differ slightly depending on how
 // you round values, but should generally be within a second or two of the
 // results shown.
-//
+
+function dms(number) {
+  console.log(number);
+}
 
 dms(30); // 30°00'00"
 dms(76.73); // 76°43'48"
