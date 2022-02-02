@@ -5,4 +5,14 @@
 // You may assume that both input arrays are non-empty, and that they have the
 // same number of elements.
 
-interleave([1, 2, 3], ["a", "b", "c"]); // [1, "a", 2, "b", 3, "c"]
+function interleave(array1, array2) {
+  const combinedArray = [];
+  array1.forEach((item, index) => {
+    combinedArray.push(array1[index], array2[index]);
+  });
+
+  return combinedArray;
+}
+
+interleave([1, 2, 3], ["a", "b", "c"]); //?
+// [1, "a", 2, "b", 3, "c"]
