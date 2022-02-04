@@ -2,6 +2,14 @@
 // positive number, return the negative of that number. If the argument is a
 // negative number, return it as-is.
 
-negative(5); // -5
-negative(-3); // -3
-negative(0); // -0
+function negative(number) {
+  return Number(String(number).startsWith("-") ? number : "-" + String(number));
+}
+
+negative(5); //?
+negative(-3); //?
+negative(0); //?
+
+// -5
+// -3
+// -0

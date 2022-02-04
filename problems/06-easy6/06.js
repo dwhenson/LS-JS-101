@@ -4,6 +4,12 @@
 
 // You may assume that the argument will always be a positive integer
 
-sequence(5); // [1, 2, 3, 4, 5]
-sequence(3); // [1, 2, 3]
-sequence(1); // [1]
+sequence(-1); //?
+sequence(0); //?
+sequence(5); //?
+sequence(3); //?
+sequence(1); //?
+
+// [1, 2, 3, 4, 5]
+// [1, 2, 3]
+// [1]
