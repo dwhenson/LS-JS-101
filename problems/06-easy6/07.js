@@ -1,9 +1,5 @@
-// Write a function that takes an integer argument and returns an array
-// containing all integers between 1 and the argument (inclusive), in ascending
-// order.
+// Write a function that takes a string argument consisting of a first name, a
+// space, and a last name, and returns a new string consisting of the last name,
+// a comma, a space, and the first name.
 
-// You may assume that the argument will always be a positive integer
-
-sequence(5); // [1, 2, 3, 4, 5]
-sequence(3); // [1, 2, 3]
-sequence(1); // [1]
+swapName("Joe Roberts"); // "Roberts, Joe"

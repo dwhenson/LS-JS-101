@@ -1,10 +1,7 @@
-// Write a function that takes a non-empty string argument and returns the
-// middle character(s) of the string. If the string has an odd length, you
-// should return exactly one character. If the string has an even length, you
-// should return exactly two characters.
+// Write a function that takes a number as an argument. If the argument is a
+// positive number, return the negative of that number. If the argument is a
+// negative number, return it as-is.
 
-centerOf("I Love JavaScript"); // "a"
-centerOf("Launch School"); // " "
-centerOf("Launch"); // "un"
-centerOf("Launchschool"); // "hs"
-centerOf("x"); // "x"
+negative(5); // -5
+negative(-3); // -3
+negative(0); // -0
