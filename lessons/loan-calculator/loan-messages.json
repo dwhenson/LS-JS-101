@@ -1,4 +1,5 @@
 {
   "welcome": "Welcome to Calculator!",
-  "error": "Sorry, you need to type a number."
+  "error": "Sorry, you need to type a number.",
+  "result": "You have to pay $${monthlyAmount(totalLoan, yearlyRate, monthsDuration)} each month."
 }
