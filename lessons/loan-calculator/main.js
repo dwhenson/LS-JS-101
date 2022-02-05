@@ -63,7 +63,7 @@ while (true) {
   // Check if months duration is valid
   while (invalidNumber(totalLoan)) {
     prompt(message["error"]);
-    totalLoan = readline.question();
+    totalLoan = readline.question().replace(/[^\d.-]/g, "");
   }
 
   // Q2 get interest rate
@@ -73,7 +73,7 @@ while (true) {
   // Check if months duration is valid
   while (invalidNumber(yearlyRate)) {
     prompt(message["error"]);
-    yearlyRate = readline.question();
+    yearlyRate = readline.question().replace(/[^\d.-]/g, "");
   }
 
   // Q3 get months duration for loan
@@ -83,7 +83,7 @@ while (true) {
   // Check if months duration is valid
   while (invalidNumber(monthsDuration)) {
     prompt(message["error"]);
-    monthsDuration = readline.question();
+    monthsDuration = readline.question().replace(/[^\d.-]/g, "");
   }
 
   // Perform the calculation and print the answer
