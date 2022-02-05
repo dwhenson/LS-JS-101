@@ -1,5 +1,16 @@
 {
   "welcome": "Welcome to Calculator!",
   "error": "Sorry, you need to type a number.",
-  "result": "You have to pay $${monthlyAmount(totalLoan, yearlyRate, monthsDuration)} each month."
+  "loan": {
+    "question": "How many dollars is your loan for?",
+    "hint": "For example, 100, 100 USD, $100."
+  },
+  "rate": {
+    "question": "What is the Annual Percentage Interest Rate (APR)?",
+    "hint": "For example, 5%, 10 percent, or just 7.5."
+  },
+  "duration": {
+    "question": "How many months is your loan for?",
+    "hint": "Make sure the value is in months, not years."
+  }
 }
