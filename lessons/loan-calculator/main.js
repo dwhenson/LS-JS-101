@@ -24,7 +24,7 @@ function prompt(msg) {
  * @return     {number}  { description_of_the_return_value }
  */
 function invalidNumber(number) {
-  return !(Number(number) >= 0) || Number.isNaN(Number(number));
+  return number.trim() === "" || !(Number(number) >= 0) || Number.isNaN(Number(number));
 }
 
 /* Lib
@@ -58,7 +58,7 @@ prompt("Welcome to the Mortgage Calculator");
 while (true) {
   // Q1 get amount loan is for
   prompt("How many dollars is your loan for?");
-  let totalLoan = readline.question();
+  let totalLoan = readline.question().replace(/[^\d.-]/g, "");
 
   // Check if months duration is valid
   while (invalidNumber(totalLoan)) {
@@ -68,7 +68,7 @@ while (true) {
 
   // Q2 get interest rate
   prompt("What is the Annual Percentage Interest Rate (APR)?");
-  let yearlyRate = readline.question();
+  let yearlyRate = readline.question().replace(/[^\d.-]/g, "");
 
   // Check if months duration is valid
   while (invalidNumber(yearlyRate)) {
@@ -78,7 +78,7 @@ while (true) {
 
   // Q3 get months duration for loan
   prompt("How many months is your loan for?");
-  let monthsDuration = readline.question();
+  let monthsDuration = readline.question().replace(/[^\d.-]/g, "");
 
   // Check if months duration is valid
   while (invalidNumber(monthsDuration)) {
