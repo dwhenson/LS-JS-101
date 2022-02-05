@@ -17,9 +17,9 @@ function prompt(msg) {
 }
 
 /**
- * Checks if input is a valid number
+ * Checks if input is valid
  * @param      {string}  number  The number as a string
- * @return     {number}  { description_of_the_return_value }
+ * @return     {boolean} true if input is invalid
  */
 function invalidNumber(number) {
   return number.trim() === "" || !(Number(number) >= 0) || Number.isNaN(Number(number));
@@ -27,6 +27,24 @@ function invalidNumber(number) {
 
 /* Lib
 /* ==================================================== */
+
+/**
+ * Gets the details required from the user
+ * @param      {string}  question  The question to ask the user
+ * @return     {number}    The response from the user
+ */
+function getDetails(question) {
+  prompt(question);
+  let value = readline.question().replace(/[^\d.-]/g, "");
+
+  // Check if input is valid
+  while (invalidNumber(value)) {
+    prompt(message["error"]);
+    value = readline.question().replace(/[^\d.-]/g, "");
+  }
+
+  return value;
+}
 
 /**
  * Calculates the monthly payment for a long
@@ -46,24 +64,6 @@ const monthlyAmount = function (totalLoan, yearlyRate, monthsDuration) {
   }
   return monthlyAmount.toFixed(2);
 };
-
-/**
- * Gets the details required from the user
- * @param      {string}  question  The question to ask the user
- * @return     {number}    The response from the user
- */
-function getDetails(question) {
-  prompt(question);
-  let value = readline.question().replace(/[^\d.-]/g, "");
-
-  // Check if input is valid
-  while (invalidNumber(value)) {
-    prompt(message["error"]);
-    value = readline.question().replace(/[^\d.-]/g, "");
-  }
-
-  return value;
-}
 
 /* ====================================================
    Inits
