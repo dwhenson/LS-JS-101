@@ -59,7 +59,7 @@ function getDetails(question, hint = "") {
   // Check if input is valid
   while (invalidNumber(value)) {
     prompt(message["error"]);
-    prompt(hint);
+    if (hint) prompt(hint);
     value = readline.question().replace(/[^\d.-]/g, "");
   }
 
@@ -78,10 +78,7 @@ while (true) {
   // Q2 get interest rate
   const yearlyRate = getDetails(message["rate"]["question"], message["rate"]["hint"]);
   // Q3 get months duration for loan
-  const monthsDuration = getDetails(
-    message["duration"]["question"],
-    message["duration"]["hint"]
-  );
+  const monthsDuration = getDetails(message["duration"]["question"]);
   // Perform the calculation and print the answer
   const result = monthlyAmount(totalLoan, yearlyRate, monthsDuration);
   console.log(`You have to pay $${result} each month.`);
