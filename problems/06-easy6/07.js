@@ -2,4 +2,10 @@
 // space, and a last name, and returns a new string consisting of the last name,
 // a comma, a space, and the first name.
 
-swapName("Joe Roberts"); // "Roberts, Joe"
+function swapName(names) {
+  const [first, second] = names.split(" ");
+  return `${second}, ${first}`;
+}
+
+swapName("Joe Roberts"); //?
+// "Roberts, Joe"
