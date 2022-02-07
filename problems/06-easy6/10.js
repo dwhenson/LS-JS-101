@@ -1,5 +1,7 @@
-// Write a function that takes a string argument and returns a new string containing the words from the string argument in reverse order
+function reverseWord(longWord) {
+  return longWord.split("").reverse().join(""); //?
+}
 
-reverseSentence(""); // ""
-reverseSentence("Hello World"); // "World Hello"
-reverseSentence("Reverse these words"); // "words these Reverse"
+function reverseWords(words) {
+  return words.split(" ").map((word) => (word.length >= 5 ? reverseWord(word) : word));
+}

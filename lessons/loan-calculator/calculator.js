@@ -33,7 +33,7 @@ function checkValue(value, checkFunction, hint = "") {
   return value;
 }
 
-/* App
+/* Lib
 /* ==================================================== */
 
 function monthsDurationCalc(question, hint) {
@@ -74,15 +74,13 @@ const monthlyAmount = function (totalLoan, yearlyRate, monthsDuration) {
    ==================================================== */
 
 prompt("Welcome to the loan calculator!");
-// While the user wants to continue keep iterating
 while (true) {
   const totalLoan = totalLoanCalc(message["loan"]["question"], message["loan"]["hint"]);
   const yearlyRate = yearlyRateCalc(message["rate"]["question"], message["rate"]["hint"]);
   const monthsDuration = monthsDurationCalc(message["duration"]["question"]);
   const payPerMonth = monthlyAmount(totalLoan, yearlyRate, monthsDuration);
   console.log(`You have to pay $${payPerMonth} each month.`);
-  // Check if user wants to continue (if true return to start of while loop)
-  const answer = readline.keyInYNStrict("Would you like to perform another calculation?");
-  if (!answer) break;
+  const anotherCalc = readline.keyInYNStrict("Would you like to do another calculation?");
+  if (!anotherCalc) break;
 }
 prompt("Thanks for using the loan calculator!");
