@@ -1,9 +1,10 @@
 {
   "welcome": "Welcome to Calculator!",
   "error": "Sorry, you need to type a number.",
+  "noZero": "Sorry, you need to type a number greater than zero.",
   "loan": {
     "question": "How many dollars is your loan for?",
-    "hint": "For example, 100, 100 USD, $100."
+    "hint": "The number must be greater than zero. For example, 100, 100 USD, $100."
   },
   "rate": {
     "question": "What is the Annual Percentage Interest Rate (APR)?",
@@ -11,6 +12,6 @@
   },
   "duration": {
     "question": "How many months is your loan for?",
-    "hint": "Make sure the value is in months, not years."
+    "hint": "The number must be greater than zero. Make sure the value is in months, not years."
   }
 }
