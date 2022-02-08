@@ -9,6 +9,20 @@ const VALID_CHOICES = [
   "lizard (l)",
   "spock (k)",
 ];
+const KEY_TO_CHOICE = {
+  r: "rock",
+  p: "paper",
+  s: "scissors",
+  l: "lizard",
+  k: "spock",
+};
+const WINNING_COMBOS = {
+  rock: ["scissors", "lizard"],
+  paper: ["rock", "spock"],
+  scissors: ["paper", "lizard"],
+  lizard: ["paper", "spock"],
+  spock: ["rock", "scissors"],
+};
 const wins = {
   player: 0,
   computer: 0,
@@ -32,6 +46,9 @@ function resetScore() {
 
 /* Lib
 /* ==================================================== */
+function playerWins(choice, computerChoice) {
+  return WINNING_COMBOS[choice].includes(computerChoice);
+}
 
 function incrementWins(winner) {
   wins[winner] += 1;
@@ -44,21 +61,6 @@ function incrementWins(winner) {
     prompt(`Sorry, the computer is the tournament winner!! 😢😢😢 \n`);
     resetScore();
   }
-}
-
-function playerWins(choice, computerChoice) {
-  return (
-    (choice === "rock" && computerChoice === "scissors") ||
-    (choice === "rock" && computerChoice === "lizard") ||
-    (choice === "paper" && computerChoice === "rock") ||
-    (choice === "paper" && computerChoice === "spock") ||
-    (choice === "scissors" && computerChoice === "paper") ||
-    (choice === "scissors" && computerChoice === "lizard") ||
-    (choice === "lizard" && computerChoice === "paper") ||
-    (choice === "lizard" && computerChoice === "spock") ||
-    (choice === "spock" && computerChoice === "rock") ||
-    (choice === "spock" && computerChoice === "scissors")
-  );
 }
 
 function displayWinner(choice, computerChoice) {
@@ -80,34 +82,19 @@ function displayWinner(choice, computerChoice) {
    ==================================================== */
 
 while (true) {
-  let choice = READLINE.keyIn(`\nChoose one: ${VALID_CHOICES.join(", ")}.\n`, {
+  let responseKey = READLINE.keyIn(`\nChoose one: ${VALID_CHOICES.join(", ")}.\n`, {
     limit: "rpslk",
   });
+
   // Convert key choice to corresponding word
-  switch (choice) {
-    case "r":
-      choice = "rock";
-      break;
-    case "p":
-      choice = "paper";
-      break;
-    case "s":
-      choice = "scissors";
-      break;
-    case "l":
-      choice = "lizard";
-      break;
-    case "k":
-      choice = "spock";
-      break;
-  }
+  const choice = KEY_TO_CHOICE[responseKey];
 
   // Generate computer choice, and remove key hint from string
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
-  let computerChoiceLong = VALID_CHOICES[randomIndex];
-  let computerChoice = computerChoiceLong
-    .toString()
-    .substring(0, computerChoiceLong.length - 4);
+  let computerChoice = VALID_CHOICES[randomIndex].substring(
+    0,
+    VALID_CHOICES[randomIndex].length - 4
+  );
   prompt(`You chose ${choice}, computer chose ${computerChoice}.`);
 
   // Calculate the winner
