@@ -23,6 +23,7 @@ const WINNING_COMBOS = {
   lizard: ["paper", "spock"],
   spock: ["rock", "scissors"],
 };
+const firstToNumber = 3;
 const wins = {
   player: 0,
   computer: 0,
@@ -44,50 +45,50 @@ function resetScore() {
   wins.player = 0;
 }
 
-/* Lib
-/* ==================================================== */
 function playerWins(choice, computerChoice) {
   return WINNING_COMBOS[choice].includes(computerChoice);
 }
 
-function incrementWins(winner) {
-  wins[winner] += 1;
+/* Lib
+/* ==================================================== */
+
+function displayScore() {
   prompt(`Total Score: You: ${wins.player}; Computer: ${wins.computer}\n`);
-  if (wins.player === 3) {
-    prompt(`You are the tournament winner!! 🥳🥳🥳 \n`);
+  if (wins.player === firstToNumber) {
+    prompt(`You are the tournament winner!! \n`);
     resetScore();
   }
-  if (wins.computer === 3) {
-    prompt(`Sorry, the computer is the tournament winner!! 😢😢😢 \n`);
+  if (wins.computer === firstToNumber) {
+    prompt(`Sorry, the computer is the tournament winner!! \n`);
     resetScore();
   }
 }
 
 function displayWinner(choice, computerChoice) {
-  let winner;
   if (playerWins(choice, computerChoice)) {
-    prompt("You win! 🥳\n");
-    winner = "player";
+    prompt("You win!\n");
+    wins.player += 1;
   } else if (choice === computerChoice) {
-    prompt("It's a tie! 👔\n");
+    prompt("It's a tie!\n");
   } else {
-    prompt("Computer wins! 😢\n");
-    winner = "computer";
+    prompt("Computer wins!\n");
+    wins.computer += 1;
   }
-  incrementWins(winner);
 }
 
 /* ====================================================
    Inits
    ==================================================== */
-
+console.clear();
+prompt(
+  "Let's play rock, paper, scissors, lizard, spock!\n=> First to three wins the match!"
+);
 while (true) {
   let responseKey = READLINE.keyIn(`\nChoose one: ${VALID_CHOICES.join(", ")}.\n`, {
     limit: "rpslk",
   });
-
   // Convert key choice to corresponding word
-  const choice = KEY_TO_CHOICE[responseKey];
+  const choice = KEY_TO_CHOICE[responseKey.toLowerCase()];
 
   // Generate computer choice, and remove key hint from string
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
@@ -97,11 +98,13 @@ while (true) {
   );
   prompt(`You chose ${choice}, computer chose ${computerChoice}.`);
 
-  // Calculate the winner
   displayWinner(choice, computerChoice);
 
+  displayScore();
+
   const playAgain = READLINE.keyInYNStrict("Would you like to play again?");
+  console.clear();
   if (!playAgain) break;
 }
 
-prompt(`Thanks for playing - bye! 👋`);
+prompt(`Thanks for playing!`);
