@@ -1,4 +1,3 @@
-// TODO
 /*
 Write a function that takes a positive integer, n, as an argument and logs a
 right triangle whose sides each have n stars. The hypotenuse of the triangle

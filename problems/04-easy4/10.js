@@ -1,26 +1,36 @@
-// Given a string of words separated by spaces, write a function that swaps the
-// first and last letters of every word.
+// Write a function that takes a year as input and returns the century
 
-// You may assume that every word contains at least one letter, and that the
-// string will always contain at least one word. You may also assume that each
-// string contains nothing but words and spaces, and that there are no leading,
-// trailing, or repeated spaces.
-// TODO
-function swap(string) {
-  const wordArray = string.split(" ");
-  const updatedArray = [];
-  wordArray.map((word) => {
-    const newFirst = word[word.length - 1];
-    const newLast = word[0];
-    const middle = word.slice(1, word.length - 1);
-    return updatedArray.push(`${newFirst}${middle}${newLast ? newLast : ""}`);
-  });
-  return updatedArray;
+function addSuffix(number) {
+  if (String(number).endsWith("1")) return `${number}st`;
+  if (String(number).endsWith("2")) return `${number}nd`;
+  if (String(number).endsWith("3")) return `${number}rd`;
+  return `${number}th`;
 }
 
-// swap("Oh what a wonderful day it is"); //?
-// swap("Abcde"); //?
-swap("a"); //?
-// // "hO thaw a londerfuw yad ti si"
-// // "ebcdA"
-// // "a"
+function century(year) {
+  if (year / 100 === 0) {
+    return addSuffix(year / 100);
+  } else {
+    return addSuffix(Math.floor(year / 100 + 1));
+  }
+}
+
+century(2000); //?
+century(2001); //?
+century(1965); //?
+century(256); //?
+century(5); //?
+century(10103); //?
+century(1052); //?
+century(1127); //?
+century(11201); //?
+
+// "20th"
+// "21st"
+// "20th"
+// "3rd"
+// "1st"
+// "102nd"
+// "11th"
+// "12th"
+// "113th"
