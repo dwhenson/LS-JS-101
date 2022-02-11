@@ -1,9 +1,16 @@
-let a = 2;
-let b = Math.floor(Math.random() * 2); //?
-a *= b; //?
+function multiply(numbers, factor) {
+  let counter = 0;
 
-if ((a = 2)) {
-  console.log("The value of `a` is two.");
-} else {
-  console.log("The value of `a` is NOT two.");
+  while (counter < numbers.length) {
+    numbers[counter] *= factor;
+    counter += 1;
+  }
+
+  return numbers;
 }
+
+let myNumbers = [1, 4, 3, 7, 2, 6];
+multiply(myNumbers, 3); //?
+myNumbers; //?
+
+// => [3, 12, 9, 21, 6, 18]
