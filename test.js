@@ -1,16 +1,4 @@
-function multiply(numbers, factor) {
-  let counter = 0;
+const array = [1, 2, 3, 4];
+const array2 = [1, 2, 3, 4];
 
-  while (counter < numbers.length) {
-    numbers[counter] *= factor;
-    counter += 1;
-  }
-
-  return numbers;
-}
-
-let myNumbers = [1, 4, 3, 7, 2, 6];
-multiply(myNumbers, 3); //?
-myNumbers; //?
-
-// => [3, 12, 9, 21, 6, 18]
+const array3 = array2.map((number) => true); //?
