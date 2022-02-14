@@ -1,4 +1,6 @@
-const array = [1, 2, 3, 4];
-const array2 = [1, 2, 3, 4];
-
-const array3 = array2.map((number) => true); //?
+[
+  { a: "ant", b: "elephant" },
+  { c: "cat", d: "dog" },
+].filter((object) => {
+  return Object.keys(object).every((key) => object[key][0] === key);
+});
