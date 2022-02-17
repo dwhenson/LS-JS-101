@@ -2,7 +2,9 @@
 // of transactions, and returns an array containing only the transactions for
 // the specified inventory item.
 
-function transactionsFor() {}
+function transactionsFor(identifier, transactionsList) {
+  return transactionsList.filter((object) => object.id === identifier);
+}
 
 let transactions = [
   { id: 101, movement: "in", quantity: 5 },
@@ -17,7 +19,7 @@ let transactions = [
   { id: 103, movement: "out", quantity: 15 },
 ];
 
-transactionsFor(101, transactions);
+transactionsFor(101, transactions); //?
 // returns
 // [ { id: 101, movement: "in",  quantity:  5 },
 //   { id: 101, movement: "in",  quantity: 12 },
