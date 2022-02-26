@@ -40,6 +40,16 @@ function shuffle(array) {
 /* App
 /* ==================================================== */
 
+function calculateWinner() {
+  if (calculateScore("player") > calculateScore("dealer")) {
+    console.log("The player wins");
+    return true;
+  } else {
+    console.log("The player wins");
+    return true;
+  }
+}
+
 function checkBust(competitor) {
   let score = calculateScore(competitor);
   console.log(`${competitor} total score is ${score}`);
@@ -104,6 +114,7 @@ function initializeDeck() {
    ==================================================== */
 
 while (true) {
+  // Set up and welcome
   initializeDeck();
   dealCards();
 
@@ -114,10 +125,14 @@ while (true) {
   );
   console.log(`The dealer holds a ${hands.dealer[0]} and an unknown card.`);
 
+  // Player turn
   while (true) {
     prompt("Would you like another card? (y/n)");
     let answer = READLINE.question().toLowerCase()[0];
-    if (answer !== "y") break;
+    if (answer !== "y") {
+      console.log(`You chose to stick at ${calculateScore("player")}`);
+      break;
+    }
 
     addCard("player");
     calculateScore("player");
@@ -127,6 +142,29 @@ while (true) {
       break;
     } else {
       console.log(`Player current hand is ${hands.player}`);
+    }
+  }
+
+  // Dealer turn
+  if (!checkBust("player")) {
+    while (true) {
+      console.log(
+        `Dealer holds ${hands.dealer[0]} and a ${
+          hands.dealer[1]
+        } (total of ${calculateScore("dealer")})`
+      );
+      while (calculateScore("dealer") < 17) {
+        addCard("dealer");
+        calculateScore("dealer");
+        if (checkBust("dealer")) {
+          console.log(`The dealer looses!`);
+          break;
+        } else {
+          console.log(`Dealer current hand is ${hands.dealer}`);
+        }
+      }
+      calculateWinner();
+      break;
     }
   }
 

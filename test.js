@@ -1,5 +1,5 @@
 let hands = {
-  player: [3, 7, 9, 4],
+  player: [3, 11, 10],
 };
 
 function calculateScore(competitor) {
@@ -20,3 +20,4 @@ function calculateScore(competitor) {
 }
 
 calculateScore("player"); //?
+console.log(hands.player);
