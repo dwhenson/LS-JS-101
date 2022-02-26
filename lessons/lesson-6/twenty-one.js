@@ -38,10 +38,45 @@ function shuffle(array) {
 }
 
 /* App
-  /* ==================================================== */
+/* ==================================================== */
+
+function checkBust(competitor) {
+  let score = calculateScore(competitor);
+  console.log(`${competitor} total score is ${score}`);
+  if (score > 21) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function calculateScore(competitor) {
+  let array = hands[competitor];
+  let score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
+  if (score > 21) {
+    if (array.includes(11)) {
+      array.splice(
+        array.findIndex((number) => number === 11),
+        1,
+        1
+      );
+    }
+    score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
+    return score;
+  }
+  return score;
+}
+
+function addCard(competitor) {
+  hands[competitor].push(deck.shift());
+  console.log(`${competitor} added a ${hands[competitor][hands[competitor].length - 1]}`);
+}
 
 function dealCards() {
-  hands = {};
+  hands = {
+    player: [],
+    dealer: [],
+  };
   hands.player = deck.splice(0, 2);
   hands.dealer = deck.splice(0, 2);
 }
@@ -72,11 +107,31 @@ while (true) {
   initializeDeck();
   dealCards();
 
-  console.log(`You hold ${hands.player[0]} and a ${hands.player[1]}.`);
+  console.log(
+    `Player holds ${hands.player[0]} and a ${hands.player[1]} (total of ${calculateScore(
+      "player"
+    )}).`
+  );
   console.log(`The dealer holds a ${hands.dealer[0]} and an unknown card.`);
 
+  while (true) {
+    prompt("Would you like another card? (y/n)");
+    let answer = READLINE.question().toLowerCase()[0];
+    if (answer !== "y") break;
+
+    addCard("player");
+    calculateScore("player");
+
+    if (checkBust("player")) {
+      console.log(`Sorry, the player looses!`);
+      break;
+    } else {
+      console.log(`Player current hand is ${hands.player}`);
+    }
+  }
+
   // Repeat game?
-  prompt("Play again?");
+  prompt("Play again? (y/n)");
   let answer = READLINE.question().toLowerCase()[0];
   if (answer !== "y") break;
 }

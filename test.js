@@ -1,19 +1,22 @@
-const HUMAN_MARKER = "X";
-const WINNING_LINES = [
-  [1, 1, 3],
-  [4, "X", 1],
-  [7, "X", "X"],
-  [1, 8, 1],
-];
+let hands = {
+  player: [3, 7, 9, 4],
+};
 
-let square;
-for (let index = 0; index < WINNING_LINES.length; index++) {
-  if (line.filter((square) => square === HUMAN_MARKER).length === 2) {
-    square = line.find((line) => line !== HUMAN_MARKER);
-    break;
-  } else {
-    console.log(9);
+function calculateScore(competitor) {
+  let array = hands[competitor];
+  let score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
+  if (score > 21) {
+    if (array.includes(11)) {
+      array.splice(
+        array.findIndex((number) => number === 11),
+        1,
+        1
+      );
+    }
+    score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
+    return score;
   }
+  return score;
 }
 
-square;
+calculateScore("player"); //?
