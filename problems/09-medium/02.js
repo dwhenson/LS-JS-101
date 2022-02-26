@@ -1,14 +1,25 @@
-function maxRotation(number) {
-  console.log(number);
+function rotateString(string) {
+  return string.slice(1) + string[0];
 }
 
-maxRotation(735291);
-// 321579
-maxRotation(3);
-// 3
-maxRotation(35);
-// 53
-maxRotation(105);
-// 15 -- the leading zero gets dropped
-maxRotation(8703529146);
-// 7321609845
+function rotateRightmostDigits(number, count) {
+  let numberString = String(number);
+  let firstPart = numberString.slice(0, numberString.length - count);
+  let secondPart = numberString.slice(numberString.length - count);
+  let resultString = firstPart + rotateString(secondPart);
+
+  return Number(resultString);
+}
+
+rotateRightmostDigits(735291, 1); //?
+// 735291
+rotateRightmostDigits(735291, 2); //?
+// 735219
+rotateRightmostDigits(735291, 3); //?
+// 735912
+rotateRightmostDigits(735291, 4); //?
+// 732915
+rotateRightmostDigits(735291, 5); //?
+// 752913
+rotateRightmostDigits(735291, 6); //?
+// 352917

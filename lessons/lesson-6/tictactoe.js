@@ -1,9 +1,10 @@
+// TODO: Add Score, Improve Play-Again Handling,
+
 const readline = require("readline-sync");
 
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const WINNING_SCORE = 5;
 const WINNING_LINES = [
   [1, 2, 3],
   [4, 5, 6],
@@ -154,15 +155,38 @@ function detectWinner(board) {
 
 while (true) {
   let board = initializeBoard();
+  let goesFirst;
+
+  while (true) {
+    prompt("Who should go first? (player or computer)");
+    goesFirst = readline.question().toLowerCase().trim();
+    if (["player", "computer"].includes(goesFirst)) break;
+
+    prompt("Sorry, that's not a valid choice.");
+  }
 
   while (true) {
     displayBoard(board);
 
-    playerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+    if (goesFirst === "player") {
+      playerChoosesSquare(board);
+      displayBoard(board);
+      if (someoneWon(board) || boardFull(board)) break;
 
-    computerChoosesSquare(board);
-    if (someoneWon(board) || boardFull(board)) break;
+      computerChoosesSquare(board);
+      displayBoard(board);
+      if (someoneWon(board) || boardFull(board)) break;
+    }
+
+    if (goesFirst === "computer") {
+      computerChoosesSquare(board);
+      displayBoard(board);
+      if (someoneWon(board) || boardFull(board)) break;
+
+      playerChoosesSquare(board);
+      displayBoard(board);
+      if (someoneWon(board) || boardFull(board)) break;
+    }
   }
 
   displayBoard(board);

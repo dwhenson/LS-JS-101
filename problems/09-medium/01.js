@@ -1,11 +1,8 @@
 function rotateArray(array) {
-  if (!Array.isArray(array)) return;
+  if (!Array.isArray(array)) return undefined;
   if (!array.length) return [];
 
-  const newArray = [...array];
-  const firstItem = newArray.shift();
-  newArray.push(firstItem);
-  return newArray;
+  return [...array].slice(1).concat(array[0]);
 }
 
 rotateArray([7, 3, 5, 2, 9, 1]); //?
