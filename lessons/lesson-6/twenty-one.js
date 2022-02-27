@@ -130,7 +130,7 @@ while (true) {
     let answer = READLINE.question().toLowerCase()[0];
     if (answer !== "y") {
       console.clear();
-      prompt(`You chose to stick at ${calculateScore("player")}\n`);
+      prompt(`Player chose to stick at ${calculateScore("player")}\n`);
       break;
     }
 
@@ -138,6 +138,10 @@ while (true) {
     calculateScore("player");
 
     if (checkBust("player")) {
+      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
+      prompt(
+        `Player current hand is ${hands.player}; Total: ${calculateScore("player")}.\n`
+      );
       prompt("The dealer wins\n".toUpperCase());
       break;
     } else {
@@ -151,23 +155,25 @@ while (true) {
   // Dealer turn
   if (!checkBust("player")) {
     prompt(
-      `Dealer holds ${hands.dealer[0]} and a ${
-        hands.dealer[1]
-      } (total of ${calculateScore("dealer")})`
+      `Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}; Total ${calculateScore(
+        "dealer"
+      )}.`
     );
     while (true) {
       while (calculateScore("dealer") < 17) {
         addCard("dealer");
-        prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}`);
+        prompt(
+          `Dealer added a ${
+            hands.dealer[hands.dealer.length - 1]
+          }; Total ${calculateScore("dealer")}.`
+        );
         calculateScore("dealer");
       }
       if (checkBust("dealer")) {
         prompt("The player wins\n".toUpperCase());
         break;
       } else {
-        prompt(
-          `Dealer current hand is ${hands.dealer}; Total: ${calculateScore("dealer")}.\n`
-        );
+        prompt(`Dealer sticks at ${calculateScore("dealer")}.\n`);
         calculateWinner();
         break;
       }
