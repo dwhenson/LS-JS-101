@@ -55,7 +55,6 @@ function checkBust(competitor) {
   if (score > 21) {
     return true;
   } else {
-    prompt(`${competitor} total score is ${score}`);
     return false;
   }
 }
@@ -70,8 +69,8 @@ function calculateScore(competitor) {
         1,
         1
       );
+      prompt(`${competitor} score is over 21, converting 11 to 1.`);
     }
-    score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
     return score;
   }
   return score;
@@ -79,7 +78,6 @@ function calculateScore(competitor) {
 
 function addCard(competitor) {
   hands[competitor].push(deck.shift());
-  prompt(`${competitor} added a ${hands[competitor][hands[competitor].length - 1]}`);
 }
 
 function dealCards() {
@@ -114,14 +112,15 @@ function initializeDeck() {
    ==================================================== */
 
 while (true) {
+  console.clear();
   // Set up and welcome
   initializeDeck();
   dealCards();
 
   prompt(
-    `Player holds ${hands.player[0]} and a ${hands.player[1]} (total of ${calculateScore(
+    `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total;: ${calculateScore(
       "player"
-    )}).`
+    )}.`
   );
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
 
@@ -130,6 +129,7 @@ while (true) {
     prompt("Would you like another card? (y/n)");
     let answer = READLINE.question().toLowerCase()[0];
     if (answer !== "y") {
+      console.clear();
       prompt(`You chose to stick at ${calculateScore("player")}\n`);
       break;
     }
@@ -138,10 +138,13 @@ while (true) {
     calculateScore("player");
 
     if (checkBust("player")) {
-      prompt(`Sorry, the player looses!\n`);
+      prompt("The dealer wins\n".toUpperCase());
       break;
     } else {
-      prompt(`Player current hand is ${hands.player}\n`);
+      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
+      prompt(
+        `Player current hand is ${hands.player}; Total: ${calculateScore("player")}.\n`
+      );
     }
   }
 
@@ -155,13 +158,16 @@ while (true) {
     while (true) {
       while (calculateScore("dealer") < 17) {
         addCard("dealer");
+        prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}`);
         calculateScore("dealer");
       }
       if (checkBust("dealer")) {
-        prompt(`The dealer looses!\n`);
+        prompt("The player wins\n".toUpperCase());
         break;
       } else {
-        prompt(`Dealer current hand is ${hands.dealer}\n`);
+        prompt(
+          `Dealer current hand is ${hands.dealer}; Total: ${calculateScore("dealer")}.\n`
+        );
         calculateWinner();
         break;
       }
@@ -175,3 +181,4 @@ while (true) {
 }
 
 prompt("Thanks for playing.");
+console.clear();
