@@ -14,6 +14,14 @@ let hands = {};
 /* Helpers
 /* ==================================================== */
 
+function capitalize(string) {
+  return string.slice(0, 1).toUpperCase() + string.slice(1);
+}
+
+function formatList(array) {
+  return array.slice().splice(array.length - 2, array.length - 1, "and ");
+}
+
 function prompt(msg) {
   console.log(`=> ${msg}`);
 }
@@ -41,12 +49,10 @@ function shuffle(array) {
 /* ==================================================== */
 
 function calculateWinner() {
-  if (calculateScore("player") > calculateScore("dealer")) {
-    prompt("The player wins\n".toUpperCase());
+  if (calculateScore("dealer") >= calculateScore("player")) {
     return true;
   } else {
-    prompt("The dealer wins\n".toUpperCase());
-    return true;
+    return false;
   }
 }
 
@@ -59,6 +65,10 @@ function checkBust(competitor) {
   }
 }
 
+function addCard(competitor) {
+  hands[competitor].push(deck.shift());
+}
+
 function calculateScore(competitor) {
   let array = hands[competitor];
   let score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
@@ -69,15 +79,14 @@ function calculateScore(competitor) {
         1,
         1
       );
-      prompt(`${competitor} score is over 21, converting 11 to 1.`);
+      score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
+      prompt(`${capitalize(competitor)} score is over 21, converting 11 to 1.`);
+      // Use recursion to check for multiple aces
+      return calculateScore(competitor);
     }
     return score;
   }
   return score;
-}
-
-function addCard(competitor) {
-  hands[competitor].push(deck.shift());
 }
 
 function dealCards() {
@@ -117,11 +126,7 @@ while (true) {
   initializeDeck();
   dealCards();
 
-  prompt(
-    `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total;: ${calculateScore(
-      "player"
-    )}.`
-  );
+  prompt(`Player holds ${formatList(hands.player)}; Total: ${calculateScore("player")}.`);
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
 
   // Player turn
@@ -140,7 +145,9 @@ while (true) {
     if (checkBust("player")) {
       prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
       prompt(
-        `Player current hand is ${hands.player}; Total: ${calculateScore("player")}.\n`
+        `Player current hand is ${formatList(hands.player)}; Total: ${calculateScore(
+          "player"
+        )}.\n`
       );
       prompt("The dealer wins\n".toUpperCase());
       break;
@@ -174,7 +181,11 @@ while (true) {
         break;
       } else {
         prompt(`Dealer sticks at ${calculateScore("dealer")}.\n`);
-        calculateWinner();
+        if (calculateWinner()) {
+          prompt("The dealer wins\n".toUpperCase());
+        } else {
+          prompt("The player wins\n".toUpperCase());
+        }
         break;
       }
     }
