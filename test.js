@@ -28,11 +28,13 @@
 // calculateScore("player"); //?
 // console.log(hands.player);
 
+const array = [1, 2, 3, 4];
+
 function formatList(array) {
-  const last = array.pop() //?
-  const newLast = " and " + last //?
-  array.push(newLast).
-  return String(array)
+  const copy = [...array];
+  const lastItem = ` and ${copy[copy.length - 1]}`;
+  copy.splice(copy.length - 1, 1, lastItem);
+  return copy.join(", ");
 }
 
-formatList([1, 2, 6]) //?
+formatList(array); //?
