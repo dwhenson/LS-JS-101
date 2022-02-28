@@ -2,10 +2,15 @@
    Variables
    ==================================================== */
 const READLINE = require("readline-sync");
-let CARDS_IN_SUIT = 14;
-let SUITS = 4;
+const CARDS_IN_SUIT = 14;
+const SUITS = 4;
+const MAX = 21;
 let deck = [];
 let hands = {};
+let totalScore = {
+  player: 0,
+  dealer: 0,
+};
 
 /* ====================================================
    Functions
@@ -19,10 +24,6 @@ function formatList(array) {
   const lastItem = `and ${copy[copy.length - 1]}`; //?
   copy.splice(copy.length - 1, 1, lastItem);
   return copy.join(", ");
-}
-
-function capitalize(string) {
-  return string.slice(0, 1).toUpperCase() + string.slice(1);
 }
 
 function prompt(msg) {
@@ -48,8 +49,25 @@ function shuffle(array) {
   return array;
 }
 
-/* App
+/* Lib
 /* ==================================================== */
+
+function calculateOverallWinner() {
+  if (totalScore.dealer >= 2) {
+    prompt("The dealer wins the tournament\n".toUpperCase());
+  }
+  if (totalScore.player >= 2) {
+    prompt("The player wins the tournament\n".toUpperCase());
+  }
+}
+
+function updateTotal() {
+  if (calculateScore("dealer") >= calculateScore("player")) {
+    totalScore.dealer += 1;
+  } else {
+    totalScore.player += 1;
+  }
+}
 
 function calculateWinner() {
   if (calculateScore("dealer") >= calculateScore("player")) {
@@ -61,7 +79,7 @@ function calculateWinner() {
 
 function checkBust(competitor) {
   let score = calculateScore(competitor);
-  if (score > 21) {
+  if (score > MAX) {
     return true;
   } else {
     return false;
@@ -75,7 +93,7 @@ function addCard(competitor) {
 function calculateScore(competitor) {
   let array = hands[competitor];
   let score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
-  if (score > 21) {
+  if (score > MAX) {
     if (array.includes(11)) {
       array.splice(
         array.findIndex((number) => number === 11),
@@ -83,7 +101,8 @@ function calculateScore(competitor) {
         1
       );
       score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
-      prompt(`${capitalize(competitor)} score is over 21, converting 11 to 1.`);
+      prompt(`The new card takes the ${competitor}'s score over ${MAX}!`);
+      prompt(`Converting the 11 to a 1.`);
       // Recursive check for multiple aces
       return calculateScore(competitor);
     }
@@ -130,6 +149,13 @@ while (true) {
   initializeDeck();
   dealCards();
 
+  if (hands.player[0] === 11 && hands.player[1] === 11) {
+    hands.player[1] = 1;
+  }
+  if (hands.dealer[0] === 11 && hands.dealer[1] === 11) {
+    hands.dealer[1] = 1;
+  }
+
   prompt(
     `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total: ${calculateScore(
       "player"
@@ -150,21 +176,25 @@ while (true) {
     addCard("player");
 
     if (checkBust("player")) {
-      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
       prompt(
-        `Player current hand is ${formatList(hands.player)}; Total: ${calculateScore(
+        `Player added a ${hands.player[hands.player.length - 1]}; Total: ${calculateScore(
           "player"
-        )}.\n`
+        )}.`
       );
+      prompt(`Player current hand is ${formatList(hands.player)}.\n`);
       prompt("The dealer wins\n".toUpperCase());
+      updateTotal();
+      prompt(
+        `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+      );
       break;
     } else {
-      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
       prompt(
-        `Player current hand is ${formatList(hands.player)}; Total: ${calculateScore(
+        `Player added a ${hands.player[hands.player.length - 1]}; Total: ${calculateScore(
           "player"
-        )}.\n`
+        )}.`
       );
+      prompt(`Player current hand is ${formatList(hands.player)}.\n`);
     }
   }
 
@@ -181,17 +211,17 @@ while (true) {
         prompt(
           `Dealer added a ${
             hands.dealer[hands.dealer.length - 1]
-          }; Total ${calculateScore("dealer")}.`
+          }; Total: ${calculateScore("dealer")}.`
         );
-        prompt(
-          `Dealer current hand is ${formatList(hands.dealer)}; Total: ${calculateScore(
-            "dealer"
-          )}.\n`
-        );
+        prompt(`Dealer current hand is ${formatList(hands.dealer)}.\n`);
       }
 
       if (checkBust("dealer")) {
         prompt("The player wins\n".toUpperCase());
+        updateTotal();
+        prompt(
+          `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+        );
         break;
       } else {
         prompt(`Dealer sticks at ${calculateScore("dealer")}.\n`);
@@ -202,8 +232,13 @@ while (true) {
       } else {
         prompt("The player wins\n".toUpperCase());
       }
+      updateTotal();
+      prompt(
+        `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+      );
       break;
     }
+    calculateOverallWinner();
   }
 
   // Repeat game?
@@ -213,4 +248,8 @@ while (true) {
 }
 
 prompt("Thanks for playing.");
+totalScore = {
+  player: 0,
+  dealer: 0,
+};
 console.clear();
