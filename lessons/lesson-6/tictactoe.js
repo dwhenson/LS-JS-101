@@ -5,7 +5,7 @@ const readline = require("readline-sync");
 const INITIAL_MARKER = " ";
 const HUMAN_MARKER = "X";
 const COMPUTER_MARKER = "O";
-const MAX_TOTAL = 2;
+const MAX_TOTAL = 5;
 const WINNING_LINES = [
   [1, 2, 3],
   [4, 5, 6],
