@@ -5,7 +5,7 @@ const READLINE = require("readline-sync");
 const CARDS_IN_SUIT = 14;
 const SUITS = 4;
 const MAX = 21;
-const MAX_TOTAL = 5;
+const MAX_TOTAL = 2;
 let deck = [];
 let hands = {};
 let totalScore = {
@@ -56,17 +56,17 @@ function shuffle(array) {
 function calculateOverallWinner() {
   if (totalScore.dealer >= MAX_TOTAL) {
     prompt("The dealer wins the tournament\n".toUpperCase());
+    totalScore = {
+      player: 0,
+      dealer: 0,
+    };
   }
   if (totalScore.player >= MAX_TOTAL) {
     prompt("The player wins the tournament\n".toUpperCase());
-  }
-}
-
-function updateTotal() {
-  if (calculateScore("dealer") >= calculateScore("player")) {
-    totalScore.dealer += 1;
-  } else {
-    totalScore.player += 1;
+    totalScore = {
+      player: 0,
+      dealer: 0,
+    };
   }
 }
 
@@ -144,12 +144,12 @@ function initializeDeck() {
    ==================================================== */
 
 while (true) {
+  // Set up
   console.clear();
-  prompt("Let's play Twenty-One!");
-  // Set up and welcome
   initializeDeck();
   dealCards();
 
+  // If two aces convert one immediately
   if (hands.player[0] === 11 && hands.player[1] === 11) {
     hands.player[1] = 1;
   }
@@ -158,17 +158,27 @@ while (true) {
   }
 
   prompt(
-    `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total: ${calculateScore(
-      "player"
-    )}.`
+    `Player holds ${hands.player[0]} and a ${
+      hands.player[1]
+    }; Total Score: ${calculateScore("player")}.`
   );
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
 
   // Player turn
   while (true) {
     prompt("Would you like another card? (y/n)");
-    let answer = READLINE.question().toLowerCase()[0];
-    if (answer !== "y") {
+    let answer = READLINE.question().trim().toLowerCase()[0];
+
+    while (true) {
+      if (["y", "Y", "n", "N"].includes(answer)) {
+        break;
+      } else {
+        prompt("Sorry, please chose either 'y' or 'n'.");
+        answer = READLINE.question().trim().toLowerCase()[0];
+      }
+    }
+
+    if (answer === "n" || answer === "N") {
       console.clear();
       prompt(`Player chose to stick at ${calculateScore("player")}\n`);
       break;
@@ -178,22 +188,22 @@ while (true) {
 
     if (checkBust("player")) {
       prompt(
-        `Player added a ${hands.player[hands.player.length - 1]}; Total: ${calculateScore(
-          "player"
-        )}.`
+        `Player added a ${
+          hands.player[hands.player.length - 1]
+        }; Total Score: ${calculateScore("player")}.`
       );
       prompt(`Player current hand is ${formatList(hands.player)}.\n`);
       prompt("The dealer wins\n".toUpperCase());
-      updateTotal();
+      totalScore.dealer += 1;
       prompt(
-        `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+        `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
       );
       break;
     } else {
       prompt(
-        `Player added a ${hands.player[hands.player.length - 1]}; Total: ${calculateScore(
-          "player"
-        )}.`
+        `Player added a ${
+          hands.player[hands.player.length - 1]
+        }; Total Score: ${calculateScore("player")}.`
       );
       prompt(`Player current hand is ${formatList(hands.player)}.\n`);
     }
@@ -202,9 +212,9 @@ while (true) {
   // Dealer turn
   if (!checkBust("player")) {
     prompt(
-      `Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}; Total: ${calculateScore(
-        "dealer"
-      )}.`
+      `Dealer holds ${hands.dealer[0]} and a ${
+        hands.dealer[1]
+      }; Total Score: ${calculateScore("dealer")}.`
     );
     while (true) {
       while (calculateScore("dealer") < 17) {
@@ -212,16 +222,16 @@ while (true) {
         prompt(
           `Dealer added a ${
             hands.dealer[hands.dealer.length - 1]
-          }; Total: ${calculateScore("dealer")}.`
+          }; Total Score: ${calculateScore("dealer")}.`
         );
         prompt(`Dealer current hand is ${formatList(hands.dealer)}.\n`);
       }
 
       if (checkBust("dealer")) {
         prompt("The player wins\n".toUpperCase());
-        updateTotal();
+        totalScore.player += 1;
         prompt(
-          `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+          `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
         );
         break;
       } else {
@@ -230,27 +240,32 @@ while (true) {
 
       if (calculateWinner()) {
         prompt("The dealer wins\n".toUpperCase());
+        totalScore.dealer += 1;
       } else {
         prompt("The player wins\n".toUpperCase());
+        totalScore.player += 1;
       }
-      updateTotal();
       prompt(
-        `The total scores are: dealer ${totalScore.dealer}; player: ${totalScore.player}.`
+        `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
       );
       break;
     }
-    calculateOverallWinner();
+  }
+  calculateOverallWinner();
+
+  // Check continue playing
+  prompt("Play again?");
+  let answer = READLINE.question().trim().toLowerCase()[0];
+
+  while (true) {
+    if (["y", "Y", "n", "N"].includes(answer)) {
+      break;
+    } else {
+      prompt("Sorry, please chose either 'y' or 'n'.");
+      answer = READLINE.question().trim().toLowerCase()[0];
+    }
   }
 
-  // Repeat game?
-  prompt("Play again? (y/n)");
-  let answer = READLINE.question().toLowerCase()[0];
-  if (answer !== "y") break;
+  if (answer === "n") prompt("Thanks for playing!");
+  if (answer === "n") break;
 }
-
-prompt("Thanks for playing.");
-totalScore = {
-  player: 0,
-  dealer: 0,
-};
-console.clear();
