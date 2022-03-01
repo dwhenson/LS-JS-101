@@ -1,40 +1,9 @@
-// let hands = {
-//   player: [3, 20, 11],
-// };
-
-// function capitalise(string) {
-//   return string.slice(0, 1).toUpperCase() + string.slice(1);
-// }
-
-// function calculateScore(competitor) {
-//   let array = hands[competitor];
-//   let score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
-//   if (score > 21) {
-//     if (array.includes(11)) {
-//       array.splice(
-//         array.findIndex((number) => number === 11),
-//         1,
-//         1
-//       );
-//       score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
-//       console.log(`${capitalise(competitor)} score is over 21, converting 11 to 1.`);
-//       return calculateScore(competitor);
-//     }
-//     return score;
-//   }
-//   return score;
-// }
-
-// calculateScore("player"); //?
-// console.log(hands.player);
-
-const array = [1, 2, 3, 4];
-
-function formatList(array) {
-  const copy = [...array];
-  const lastItem = ` and ${copy[copy.length - 1]}`;
-  copy.splice(copy.length - 1, 1, lastItem);
-  return copy.join(", ");
+function squareDigits(num) {
+  return String(num)
+    .split("")
+    .reduce((acc, cur) => {
+      return acc + String(cur * cur);
+    }, 0);
 }
 
-formatList(array); //?
+squareDigits(3212); //?

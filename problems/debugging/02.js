@@ -43,19 +43,20 @@ const RESERVED_KEYWORDS = [
   "yield",
 ];
 
-function isReserved(name) {
-  RESERVED_KEYWORDS.forEach((reserved) => {
-    if (name === reserved) {
-      return true;
-    }
-  });
+// function isReserved(name) {
+//   RESERVED_KEYWORDS.forEach(reserved => {
+//     if (name === reserved) {
+//       return true;
+//     }
+//   });
 
-  return false;
+//   return false;
+// }
+
+function isReserved(name) {
+  return RESERVED_KEYWORDS.includes(name);
 }
 
-console.log(isReserved("monkey"));
-// false
-console.log(isReserved("patch"));
-// false
-console.log(isReserved("switch"));
-// should be: true
+console.log(isReserved("monkey")); // false
+console.log(isReserved("patch")); // false
+console.log(isReserved("switch")); // should be: true

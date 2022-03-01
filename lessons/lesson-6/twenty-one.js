@@ -5,6 +5,7 @@ const READLINE = require("readline-sync");
 const CARDS_IN_SUIT = 14;
 const SUITS = 4;
 const MAX = 21;
+const MAX_TOTAL = 5;
 let deck = [];
 let hands = {};
 let totalScore = {
@@ -53,10 +54,10 @@ function shuffle(array) {
 /* ==================================================== */
 
 function calculateOverallWinner() {
-  if (totalScore.dealer >= 2) {
+  if (totalScore.dealer >= MAX_TOTAL) {
     prompt("The dealer wins the tournament\n".toUpperCase());
   }
-  if (totalScore.player >= 2) {
+  if (totalScore.player >= MAX_TOTAL) {
     prompt("The player wins the tournament\n".toUpperCase());
   }
 }
