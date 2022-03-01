@@ -5,7 +5,7 @@ const READLINE = require("readline-sync");
 const CARDS_IN_SUIT = 14;
 const SUITS = 4;
 const MAX = 21;
-const MAX_TOTAL = 2;
+const MAX_TOTAL = 5;
 let deck = [];
 let hands = {};
 let totalScore = {
@@ -149,6 +149,10 @@ while (true) {
   initializeDeck();
   dealCards();
 
+  // Set score variables
+  let playerTotal = calculateScore("player");
+  let dealerTotal = calculateScore("dealer");
+
   // If two aces convert one immediately
   if (hands.player[0] === 11 && hands.player[1] === 11) {
     hands.player[1] = 1;
@@ -158,9 +162,7 @@ while (true) {
   }
 
   prompt(
-    `Player holds ${hands.player[0]} and a ${
-      hands.player[1]
-    }; Total Score: ${calculateScore("player")}.`
+    `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total Score: ${playerTotal}.`
   );
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
 
@@ -180,17 +182,19 @@ while (true) {
 
     if (answer === "n" || answer === "N") {
       console.clear();
-      prompt(`Player chose to stick at ${calculateScore("player")}\n`);
+      playerTotal = calculateScore("player");
+      prompt(`Player chose to stick at ${playerTotal}\n`);
       break;
     }
 
     addCard("player");
 
     if (checkBust("player")) {
+      playerTotal = calculateScore("player");
       prompt(
         `Player added a ${
           hands.player[hands.player.length - 1]
-        }; Total Score: ${calculateScore("player")}.`
+        }; Total Score: ${playerTotal}.`
       );
       prompt(`Player current hand is ${formatList(hands.player)}.\n`);
       prompt("The dealer wins\n".toUpperCase());
@@ -200,10 +204,11 @@ while (true) {
       );
       break;
     } else {
+      playerTotal = calculateScore("player");
       prompt(
         `Player added a ${
           hands.player[hands.player.length - 1]
-        }; Total Score: ${calculateScore("player")}.`
+        }; Total Score: ${playerTotal}.`
       );
       prompt(`Player current hand is ${formatList(hands.player)}.\n`);
     }
@@ -212,17 +217,16 @@ while (true) {
   // Dealer turn
   if (!checkBust("player")) {
     prompt(
-      `Dealer holds ${hands.dealer[0]} and a ${
-        hands.dealer[1]
-      }; Total Score: ${calculateScore("dealer")}.`
+      `Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}; Total Score: ${dealerTotal}.`
     );
     while (true) {
       while (calculateScore("dealer") < 17) {
         addCard("dealer");
+        dealerTotal = calculateScore("dealer");
         prompt(
           `Dealer added a ${
             hands.dealer[hands.dealer.length - 1]
-          }; Total Score: ${calculateScore("dealer")}.`
+          }; Total Score: ${dealerTotal}.`
         );
         prompt(`Dealer current hand is ${formatList(hands.dealer)}.\n`);
       }
@@ -235,7 +239,7 @@ while (true) {
         );
         break;
       } else {
-        prompt(`Dealer sticks at ${calculateScore("dealer")}.\n`);
+        prompt(`Dealer sticks at ${dealerTotal}.\n`);
       }
 
       if (calculateWinner()) {
