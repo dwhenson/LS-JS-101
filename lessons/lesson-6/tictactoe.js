@@ -81,14 +81,14 @@ function someoneWon(board) {
 function computerChoosesSquare(board) {
   let square;
 
-  // offense
+  // Offense first
   for (let index = 0; index < WINNING_LINES.length; index++) {
     let line = WINNING_LINES[index];
     square = findAtRiskSquare(line, board, COMPUTER_MARKER);
     if (square) break;
   }
 
-  // defense
+  // Defense second
   if (!square) {
     for (let index = 0; index < WINNING_LINES.length; index++) {
       let line = WINNING_LINES[index];
@@ -97,14 +97,14 @@ function computerChoosesSquare(board) {
     }
   }
 
-  // choose middle square if available
+  // Else choose middle square if available
   if (!square) {
     if (board[5] === INITIAL_MARKER) {
       square = 5;
     }
   }
 
-  //  pick a random square
+  //  Otherwise pick a random square
   if (!square) {
     let randomIndex = Math.floor(Math.random() * emptySquares(board).length);
     square = emptySquares(board)[randomIndex];
@@ -138,6 +138,11 @@ function findAtRiskSquare(line, board, marker) {
   }
 
   return null;
+}
+
+function chooseSquare(board, currentPlayer) {
+  if (currentPlayer === "player") playerChoosesSquare(board);
+  if (currentPlayer === "computer") computerChoosesSquare(board);
 }
 
 function displayBoard(board) {
@@ -175,11 +180,13 @@ function initializeBoard() {
    ==================================================== */
 
 while (true) {
+  // Set up
   console.clear();
   let board = initializeBoard();
   let goesFirst;
   let goesSecond;
 
+  // Choose who goes first
   while (true) {
     prompt("Who should go first? (player or computer)");
     goesFirst = readline.question().toLowerCase().trim();
@@ -189,40 +196,27 @@ while (true) {
     prompt("Sorry, that's not a valid choice.");
   }
 
+  // Play the game
+  let currentPlayer = goesFirst;
   while (true) {
     displayBoard(board);
-
-    if (goesFirst === "player") {
-      displayBoard(board);
-      playerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
-
-      displayBoard(board);
-      computerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
-    }
-
-    if (goesFirst === "computer") {
-      displayBoard(board);
-      computerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
-
-      displayBoard(board);
-      playerChoosesSquare(board);
-      if (someoneWon(board) || boardFull(board)) break;
-    }
+    chooseSquare(board, currentPlayer);
+    currentPlayer = currentPlayer === goesFirst ? goesSecond : goesFirst;
+    if (someoneWon(board) || boardFull(board)) break;
   }
 
-  displayBoard(board);
-
+  // Display winner and update score
   if (someoneWon(board)) {
+    displayBoard(board);
     prompt(`${detectWinner(board)} won!`);
+
     totalScore[detectWinner(board).toLowerCase()] += 1;
+    prompt(`Total scores: player: ${totalScore.player}; computer ${totalScore.computer}`);
   } else {
     prompt("It's a tie!");
   }
 
-  prompt(`Total scores: player: ${totalScore.player}; computer ${totalScore.computer}`);
+  // Check total score
   if (totalScore.player >= MAX_TOTAL) {
     prompt("The player wins the tournament\n".toUpperCase());
   }
@@ -230,6 +224,7 @@ while (true) {
     prompt("The computer wins the tournament\n".toUpperCase());
   }
 
+  // Check continue playing
   prompt("Play again?");
   let answer = readline.question().trim().toLowerCase()[0];
 
