@@ -21,8 +21,10 @@ function targetRoll(characterValue) {
   switch (result) {
     case 1:
       automaticFail();
+      break;
     case 20:
       automaticSuccess();
+      break;
     default:
       void (result >= characterValue ? success() : fail());
   }

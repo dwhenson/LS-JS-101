@@ -153,7 +153,7 @@ while (true) {
   let playerTotal = calculateScore("player");
   let dealerTotal = calculateScore("dealer");
 
-  // If two aces convert one immediately
+  // If two aces in initial hand convert one immediately
   if (hands.player[0] === 11 && hands.player[1] === 11) {
     hands.player[1] = 1;
   }
@@ -161,12 +161,11 @@ while (true) {
     hands.dealer[1] = 1;
   }
 
-  prompt(
-    `Player holds ${hands.player[0]} and a ${hands.player[1]}; Total Score: ${playerTotal}.`
-  );
+  prompt(`Player holds ${hands.player[0]} and a ${hands.player[1]}.`);
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
 
   // Player turn
+  prompt(`Player hand is ${playerTotal} in total.`);
   while (true) {
     prompt("Would you like another card? (y/n)");
     let answer = READLINE.question().trim().toLowerCase()[0];
@@ -191,52 +190,38 @@ while (true) {
 
     if (checkBust("player")) {
       playerTotal = calculateScore("player");
-      prompt(
-        `Player added a ${
-          hands.player[hands.player.length - 1]
-        }; Total Score: ${playerTotal}.`
-      );
-      prompt(`Player current hand is ${formatList(hands.player)}.\n`);
+      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
+      prompt(`Player current hand is ${formatList(hands.player)}.`);
+      prompt(`Player hand is ${playerTotal} in total.\n`);
       prompt("The dealer wins\n".toUpperCase());
       totalScore.dealer += 1;
-      prompt(
-        `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
-      );
+      prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
       break;
     } else {
       playerTotal = calculateScore("player");
-      prompt(
-        `Player added a ${
-          hands.player[hands.player.length - 1]
-        }; Total Score: ${playerTotal}.`
-      );
-      prompt(`Player current hand is ${formatList(hands.player)}.\n`);
+      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
+      prompt(`Player current hand is ${formatList(hands.player)}.`);
+      prompt(`Player hand is ${playerTotal} in total.\n`);
     }
   }
 
   // Dealer turn
   if (!checkBust("player")) {
-    prompt(
-      `Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}; Total Score: ${dealerTotal}.`
-    );
+    prompt(`Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}.\n`);
+
     while (true) {
       while (calculateScore("dealer") < 17) {
         addCard("dealer");
         dealerTotal = calculateScore("dealer");
-        prompt(
-          `Dealer added a ${
-            hands.dealer[hands.dealer.length - 1]
-          }; Total Score: ${dealerTotal}.`
-        );
-        prompt(`Dealer current hand is ${formatList(hands.dealer)}.\n`);
+        prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}`);
+        prompt(`Dealer current hand is ${formatList(hands.dealer)}.`);
+        prompt(`Dealer hand is ${dealerTotal} in total.\n`);
       }
 
       if (checkBust("dealer")) {
         prompt("The player wins\n".toUpperCase());
         totalScore.player += 1;
-        prompt(
-          `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
-        );
+        prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
         break;
       } else {
         prompt(`Dealer sticks at ${dealerTotal}.\n`);
@@ -249,9 +234,7 @@ while (true) {
         prompt("The player wins\n".toUpperCase());
         totalScore.player += 1;
       }
-      prompt(
-        `The total scores are: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.`
-      );
+      prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
       break;
     }
   }
