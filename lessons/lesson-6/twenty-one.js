@@ -71,10 +71,12 @@ function calculateOverallWinner() {
 }
 
 function calculateWinner() {
-  if (calculateScore("dealer") >= calculateScore("player")) {
-    return true;
+  if (calculateScore("dealer") > calculateScore("player")) {
+    return "dealer";
+  } else if (calculateScore("dealer") < calculateScore("player")) {
+    return "player";
   } else {
-    return false;
+    return "tie";
   }
 }
 
@@ -103,7 +105,7 @@ function calculateScore(competitor) {
       );
       score = array.reduce((acc, cur) => (acc += Number(cur)), 0);
       prompt(`The new card takes the ${competitor}'s score over ${MAX}!`);
-      prompt(`Converting the 11 to a 1.`);
+      prompt(`Converting the ${competitor}'s 11 to a 1.`);
       // Recursive check for multiple aces
       return calculateScore(competitor);
     }
@@ -168,13 +170,13 @@ while (true) {
   prompt(`Player hand is ${playerTotal} in total.`);
   while (true) {
     prompt("Would you like another card? (y/n)");
-    let answer = READLINE.question().trim().toLowerCase()[0];
+    let answer = READLINE.question().toLowerCase();
 
     while (true) {
-      if (["y", "Y", "n", "N"].includes(answer)) {
+      if (["y", "n", "yes", "no"].includes(answer)) {
         break;
       } else {
-        prompt("Sorry, please chose either 'y' or 'n'.");
+        prompt("Sorry, please chose either 'yes (y)' or 'n0 (n)'.");
         answer = READLINE.question().trim().toLowerCase()[0];
       }
     }
@@ -190,10 +192,10 @@ while (true) {
 
     if (checkBust("player")) {
       playerTotal = calculateScore("player");
-      prompt(`Player added a ${hands.player[hands.player.length - 1]}`);
+      prompt(`Player added a ${hands.player[hands.player.length - 1]}.`);
       prompt(`Player current hand is ${formatList(hands.player)}.`);
       prompt(`Player hand is ${playerTotal} in total.\n`);
-      prompt("The dealer wins\n".toUpperCase());
+      prompt("Player bust!! The dealer wins.\n".toUpperCase());
       totalScore.dealer += 1;
       prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
       break;
@@ -213,13 +215,13 @@ while (true) {
       while (calculateScore("dealer") < 17) {
         addCard("dealer");
         dealerTotal = calculateScore("dealer");
-        prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}`);
+        prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}.`);
         prompt(`Dealer current hand is ${formatList(hands.dealer)}.`);
         prompt(`Dealer hand is ${dealerTotal} in total.\n`);
       }
 
       if (checkBust("dealer")) {
-        prompt("The player wins\n".toUpperCase());
+        prompt("The dealer bust!! The player wins.\n".toUpperCase());
         totalScore.player += 1;
         prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
         break;
@@ -227,12 +229,14 @@ while (true) {
         prompt(`Dealer sticks at ${dealerTotal}.\n`);
       }
 
-      if (calculateWinner()) {
+      if (calculateWinner() === "dealer") {
         prompt("The dealer wins\n".toUpperCase());
         totalScore.dealer += 1;
-      } else {
+      } else if (calculateWinner() === "player") {
         prompt("The player wins\n".toUpperCase());
         totalScore.player += 1;
+      } else {
+        prompt("It's a tie!\n".toUpperCase());
       }
       prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
       break;
@@ -242,17 +246,17 @@ while (true) {
 
   // Check continue playing
   prompt("Play again?");
-  let answer = READLINE.question().trim().toLowerCase()[0];
+  let answer = READLINE.question().toLowerCase();
 
   while (true) {
-    if (["y", "Y", "n", "N"].includes(answer)) {
+    if (["y", "n", "yes", "no"].includes(answer)) {
       break;
     } else {
-      prompt("Sorry, please chose either 'y' or 'n'.");
-      answer = READLINE.question().trim().toLowerCase()[0];
+      prompt("Sorry, please chose either 'yes (y)' or 'n0 (n)'.");
+      answer = READLINE.question().toLowerCase();
     }
   }
 
-  if (answer === "n") prompt("Thanks for playing!");
-  if (answer === "n") break;
+  if (answer === "n" || answer === "no") prompt("Thanks for playing!");
+  if (answer === "n" || answer === "no") break;
 }
