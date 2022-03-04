@@ -22,3 +22,5 @@ isUppercase(""); //?
 // true
 // true
 // true
+
+console.log();
