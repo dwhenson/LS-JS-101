@@ -6,6 +6,7 @@ const CARDS_IN_SUIT = 14;
 const SUITS = 4;
 const MAX = 21;
 const MAX_TOTAL = 5;
+const DEALER_MIN = 17;
 let deck = [];
 let hands = {};
 let totalScore = {
@@ -114,6 +115,16 @@ function calculateScore(competitor) {
   return score;
 }
 
+function checkInitialAces() {
+  // If two aces in initial hand convert one immediately
+  if (hands.player[0] === 11 && hands.player[1] === 11) {
+    hands.player[1] = 1;
+  }
+  if (hands.dealer[0] === 11 && hands.dealer[1] === 11) {
+    hands.dealer[1] = 1;
+  }
+}
+
 function dealCards() {
   hands = {
     player: [],
@@ -155,13 +166,7 @@ while (true) {
   let playerTotal = calculateScore("player");
   let dealerTotal = calculateScore("dealer");
 
-  // If two aces in initial hand convert one immediately
-  if (hands.player[0] === 11 && hands.player[1] === 11) {
-    hands.player[1] = 1;
-  }
-  if (hands.dealer[0] === 11 && hands.dealer[1] === 11) {
-    hands.dealer[1] = 1;
-  }
+  checkInitialAces();
 
   prompt(`Player holds ${hands.player[0]} and a ${hands.player[1]}.`);
   prompt(`The dealer holds a ${hands.dealer[0]} and an unknown card.\n`);
@@ -176,8 +181,8 @@ while (true) {
       if (["y", "n", "yes", "no"].includes(answer)) {
         break;
       } else {
-        prompt("Sorry, please chose either 'yes (y)' or 'n0 (n)'.");
-        answer = READLINE.question().trim().toLowerCase()[0];
+        prompt("Sorry, please chose either 'yes (y)' or 'no (n)'.");
+        answer = READLINE.question().toLowerCase();
       }
     }
 
@@ -212,7 +217,7 @@ while (true) {
     prompt(`Dealer holds ${hands.dealer[0]} and a ${hands.dealer[1]}.\n`);
 
     while (true) {
-      while (calculateScore("dealer") < 17) {
+      while (calculateScore("dealer") < DEALER_MIN) {
         addCard("dealer");
         dealerTotal = calculateScore("dealer");
         prompt(`Dealer added a ${hands.dealer[hands.dealer.length - 1]}.`);
@@ -242,6 +247,7 @@ while (true) {
       break;
     }
   }
+
   calculateOverallWinner();
 
   // Check continue playing
