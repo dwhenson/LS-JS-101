@@ -1,13 +1,6 @@
-// Write a function that takes one argument, an array of integers, and returns
-// the average of all the integers in the array, rounded down to the integer
-// component of the average. The array will never be empty, and the numbers will
-// always be positive integers.
-
 function average(numbers) {
   return Math.floor(
-    numbers.reduce((acc, cur) => {
-      return (acc += cur);
-    }, 1) / numbers.length
+    numbers.reduce((acc, cur) => (acc += cur), 0) / numbers.length
   );
 }
 

@@ -1,14 +1,19 @@
 function isPalindrome(string) {
-  return string === string.split("").reverse().join("");
+  return string.split("").reverse().join("") === string;
 }
 
-function isPalindromicNumber(value) {
-  const string = value.toString();
+function isPalindromicNumber(number) {
+  let string = String(number)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
   return isPalindrome(string);
 }
 
 isPalindromicNumber(34543); //?
+// true
 isPalindromicNumber(123210); //?
+// false
 isPalindromicNumber(22); //?
+// true
 isPalindromicNumber(5); //?
-isPalindromicNumber(005); //?
+// true

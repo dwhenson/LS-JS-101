@@ -1,12 +1,9 @@
-function stringy(number) {
-  let binaryArray = [];
-  for (let index = 0; index < number; index++) {
-    let number = index % 2 === 0 ? 1 : 0;
-    binaryArray += number;
-  }
-  return binaryArray;
+function logInBox(string) {
+  console.log(`+${"-".repeat(string.length)}+`);
+  console.log(`+${" ".repeat(string.length)}+`);
+  console.log(`+${string}+`);
+  console.log(`+${" ".repeat(string.length)}+`);
+  console.log(`+${"-".repeat(string.length)}+`);
 }
 
-stringy(6); //?
-stringy(9); //?
-stringy(4);
+logInBox("To boldly go where no one has gone before.");

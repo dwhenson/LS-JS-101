@@ -1,26 +1,9 @@
-/*
-Write a function that takes a positive integer, n, as an argument and logs a
-right triangle whose sides each have n stars. The hypotenuse of the triangle
-(the diagonal side in the images below) should have one end at the lower-left of
-the triangle, and the other end at the upper-right.
+function findFibonacciIndexByLength(number) {}
 
-triangle(5);
-
-    *
-   **
-  ***
- ****
-*****
-
-triangle(9);
-
-        *
-       **
-      ***
-     ****
-    *****
-   ******
-  *******
- ********
-*********
-*/
+findFibonacciIndexByLength(2n) === 7n; // 1 1 2 3 5 8 13
+findFibonacciIndexByLength(3n) === 12n; // 1 1 2 3 5 8 13 21 34 55 89 144
+// findFibonacciIndexByLength(10n) === 45n;
+// findFibonacciIndexByLength(16n) === 74n;
+// findFibonacciIndexByLength(100n) === 476n;
+// findFibonacciIndexByLength(1000n) === 4782n;
+// findFibonacciIndexByLength(10000n) === 47847n;

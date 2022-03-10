@@ -1,6 +1,4 @@
-function negative(number) {
-  return Number(String(number).startsWith("-") ? number : "-" + String(number));
-}
+function negative(number) {}
 
 negative(5); //?
 negative(-3); //?

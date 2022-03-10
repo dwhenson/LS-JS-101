@@ -1,14 +1,7 @@
 const vowels = ["a", "e", "i", "o", "u"];
 
-function doubleConsonants(string) {
-  let repeated = [];
-  for (const letter of string) {
-    if (vowels.includes(letter.toLowerCase()) || !letter.match(/[a-z]/i)) {
-      repeated.push(letter);
-      continue;
-    } else {
-      repeated.push(letter + letter);
-    }
-  }
-  return repeated.join("");
-}
+function doubleConsonants(string) {}
+doubleConsonants("String"); // "SSttrrinngg"
+doubleConsonants("Hello-World!"); // "HHellllo-WWorrlldd!"
+doubleConsonants("July 4th"); // "JJullyy 4tthh"
+doubleConsonants(""); // ""

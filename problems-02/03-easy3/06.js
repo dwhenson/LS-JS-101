@@ -1,9 +1,10 @@
-const readlineSync = require("readline-sync");
-const noun = readlineSync.question("Enter a noun:\n");
-const verb = readlineSync.question("Enter a verb:\n");
-const adjective = readlineSync.question("Enter a adjective:\n");
-const adverb = readlineSync.question("Enter a adverb:\n");
+function triangle(number) {
+  let stars = 1;
+  for (let index = number; index > 0; index--) {
+    console.log(`${" ".repeat(index - 1)}${"*".repeat(stars)}`);
+    stars += 1;
+  }
+}
 
-console.log(`
-  Do you ${verb} your ${adjective} ${noun} ${adverb}? That's hilarious!
-  `);
+triangle(2);
+// triangle(9);

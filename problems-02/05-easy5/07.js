@@ -1,9 +1,5 @@
 function multiplyList(array1, array2) {
-  const combinedArray = [];
-  array1.forEach((item, index) => {
-    combinedArray.push(array1[index] * array2[index]);
-  });
-  return combinedArray;
+  return array1.map((item, index) => item * array2[index]);
 }
 
 multiplyList([3, 5, 7], [9, 10, 11]); //?

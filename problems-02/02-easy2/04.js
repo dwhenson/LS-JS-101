@@ -1,9 +1,9 @@
-function multiply(num1, num2) {
+function multiplty(num1, num2) {
   return num1 * num2;
 }
 
-function square(num) {
-  return multiply(num, num);
+function square(number) {
+  return multiplty(number, number);
 }
 
-square(5); //?
+square(2); //?

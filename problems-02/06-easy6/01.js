@@ -1,7 +1,13 @@
 function repeater(string) {
-  let repeated = [];
-  for (const letter of string) {
-    repeated.push(letter + letter);
-  }
-  return repeated.join("");
+  return string
+    .split("")
+    .map((letter) => letter + letter)
+    .join("");
 }
+
+repeater("Hello"); //?
+// "HHeelllloo"
+repeater("Good job!"); //?
+// "GGoooodd  jjoobb!!"
+repeater(""); //?
+// ""

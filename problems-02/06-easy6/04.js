@@ -1,9 +1,7 @@
-function centerOf(string) {
-  const middle = Math.floor(string.length / 2);
+function centerOf(string) {}
 
-  if (string.length % 2) {
-    return string.charAt(middle);
-  } else {
-    return string.charAt(middle) + string.charAt(middle - 1);
-  }
-}
+centerOf("I Love JavaScript"); // "a"
+centerOf("Launch School"); // " "
+centerOf("Launch"); // "un"
+centerOf("Launchschool"); // "hs"
+centerOf("x"); // "x"

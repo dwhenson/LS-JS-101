@@ -1,4 +1,4 @@
-function stringToInteger(string) {
+function stringToSignedInteger(string) {
   const DIGITS = {
     0: 0,
     1: 1,
@@ -17,21 +17,6 @@ function stringToInteger(string) {
   return value;
 }
 
-function stringToSignedInteger(string) {
-  switch (string[0]) {
-    case "-":
-      return -stringToInteger(string.slice(1, string.length));
-    case "+":
-      return stringToInteger(string.slice(1, string.length));
-    default:
-      return stringToInteger(string);
-  }
-}
-
-console.log(stringToSignedInteger("4321") === 4321);
-console.log(stringToSignedInteger("-570") === -570);
-console.log(stringToSignedInteger("+100") === 100);
-
-// logs true
-// logs true
-// logs true
+console.log(stringToSignedInteger("4321") === 4321); // logs true
+console.log(stringToSignedInteger("-570") === -570); // logs true
+console.log(stringToSignedInteger("+100") === 100); // logs true

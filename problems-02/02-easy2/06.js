@@ -1,6 +1,9 @@
-function penultimate(words) {
-  return words.split(" ")[words.split(" ").length - 2]; //?
+function penultimate(string) {
+  let words = string.split(" ");
+  return words[words.length - 2];
 }
 
-console.log(penultimate("last word") === "last");
-console.log(penultimate("Launch School is great!") === "is");
+console.log(penultimate("last word") === "last"); //?
+// logs true
+console.log(penultimate("Launch School is great!") === "is"); //?
+// logs true

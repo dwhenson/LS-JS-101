@@ -1,8 +1,4 @@
-function isBalanced(string) {
-  const opening = string.split("").filter((letter) => letter === "(").length; //?
-  const closing = string.split("").filter((letter) => letter === ")").length; //?
-  return opening === closing;
-}
+function isBalanced(string) {}
 
 console.log(isBalanced("What (is) this?")); //?
 console.log(isBalanced("What is) this?")); //?

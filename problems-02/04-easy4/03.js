@@ -1,14 +1,9 @@
-let readlineSync = require("readline-sync");
+function retire(ageNow, ageRetire) {
+  let yearsToRetire = ageRetire - ageNow;
+  let currentYear = new Date().getFullYear();
+  let retireYear = currentYear + yearsToRetire;
 
-let currentAge = Number(readlineSync.question("What is your age?\n"));
-let retirementAge = Number(
-  readlineSync.question("At what age would you like to retire?\n")
-);
+  return `It's ${currentYear}. You will retire in ${retireYear}. Only ${yearsToRetire} years left to go.`;
+}
 
-const yearsToRetirement = retirementAge - currentAge;
-const year = new Date().getFullYear();
-
-console.log(`
-    It's ${year}. You will retire in ${year + yearsToRetirement}.
-    You have only ${yearsToRetirement} years of work to go!
-  `);
+retire(45, 60); //?

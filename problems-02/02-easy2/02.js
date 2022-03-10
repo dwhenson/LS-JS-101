@@ -1,9 +1,10 @@
-const readlineSync = require("readline-sync");
+function scream(string) {
+  const name = string.slice(0, string.length - 1);
 
-const name = readlineSync.question("What is your name?\n");
-
-if (name.endsWith("!")) {
-  console.log(`HELLO ${name.slice(0, -1).toUpperCase()} WHY ARE WE SCREAMING?`);
-} else {
-  console.log(`Hello ${name}`);
+  if (string.endsWith("!")) {
+    return `HELLO ${name.toUpperCase()}. WHY ARE WE SCREAMING?`;
+  }
+  return `HELLO ${name}.`;
 }
+
+scream("Bob!"); //?

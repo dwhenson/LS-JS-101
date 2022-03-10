@@ -1,12 +1,4 @@
-function reverse(array) {
-  for (let index = 0; index < Math.floor(array.length / 2); index++) {
-    [array[index], array[array.length - 1 - index]] = [
-      array[array.length - 1 - index],
-      array[index],
-    ];
-  }
-  return array; //?
-}
+function reverse(array) {}
 
 let list = [1, 2, 3, 4];
 let result = reverse(list);

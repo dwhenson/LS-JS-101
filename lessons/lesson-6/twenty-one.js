@@ -22,8 +22,8 @@ let totalScore = {
 /* ==================================================== */
 
 function formatList(array) {
-  const copy = [...array];
-  const lastItem = `and ${copy[copy.length - 1]}`; //?
+  let copy = [...array];
+  let lastItem = `and ${copy[copy.length - 1]}`; //?
   copy.splice(copy.length - 1, 1, lastItem);
   return copy.join(", ");
 }
@@ -202,7 +202,9 @@ while (true) {
       prompt(`Player hand is ${playerTotal} in total.\n`);
       prompt("Player bust!! The dealer wins.\n".toUpperCase());
       totalScore.dealer += 1;
-      prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
+      prompt(
+        `Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`
+      );
       break;
     } else {
       playerTotal = calculateScore("player");
@@ -228,7 +230,9 @@ while (true) {
       if (checkBust("dealer")) {
         prompt("The dealer bust!! The player wins.\n".toUpperCase());
         totalScore.player += 1;
-        prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
+        prompt(
+          `Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`
+        );
         break;
       } else {
         prompt(`Dealer sticks at ${dealerTotal}.\n`);
@@ -243,7 +247,9 @@ while (true) {
       } else {
         prompt("It's a tie!\n".toUpperCase());
       }
-      prompt(`Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`);
+      prompt(
+        `Score: Dealer ${totalScore.dealer}; Player: ${totalScore.player}.\n`
+      );
       break;
     }
   }

@@ -1,36 +1,13 @@
-// Write a function that takes a year as input and returns the century
-
-function addSuffix(number) {
-  if (String(number).endsWith("1")) return `${number}st`;
-  if (String(number).endsWith("2")) return `${number}nd`;
-  if (String(number).endsWith("3")) return `${number}rd`;
-  return `${number}th`;
+function swap(string) {
+  if (string.length <= 1) return string;
+  let words = string.split(" ");
+  return words
+    .map((word) => word[word.length - 1] + word.slice(1, -1) + word[0])
+    .join(" ");
 }
 
-function century(year) {
-  if (year / 100 === 0) {
-    return addSuffix(year / 100);
-  } else {
-    return addSuffix(Math.floor(year / 100 + 1));
-  }
-}
-
-century(2000); //?
-century(2001); //?
-century(1965); //?
-century(256); //?
-century(5); //?
-century(10103); //?
-century(1052); //?
-century(1127); //?
-century(11201); //?
-
-// "20th"
-// "21st"
-// "20th"
-// "3rd"
-// "1st"
-// "102nd"
-// "11th"
-// "12th"
-// "113th"
+swap("Oh what a wonderful day it is"); //?
+// "hO thaw a londerfuw yad ti si"
+swap("Abcde"); //?
+// "ebcdA"
+swap("a"); //?
