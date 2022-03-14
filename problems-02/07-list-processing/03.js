@@ -1,11 +1,6 @@
-function mutiplyAllPairs(array1, array2) {
-  const combined = [];
-
-  array1.forEach((numberArr1) =>
-    array2.forEach((numberArr2) => combined.push(numberArr1 * numberArr2))
-  );
-
-  return combined.sort((a, b) => a - b);
+function multiplyAllPairs(array1, array2) {
+  return;
 }
 
-mutiplyAllPairs([2, 4], [4, 3, 1, 2]); //?
+multiplyAllPairs([2, 4], [4, 3, 1, 2]);
+// [2, 4, 4, 6, 8, 8, 12, 16]

@@ -1,4 +1,10 @@
-function negative(number) {}
+function negative(number) {
+  if (/-/.test(number)) {
+    return number;
+  } else {
+    return -number;
+  }
+}
 
 negative(5); //?
 negative(-3); //?

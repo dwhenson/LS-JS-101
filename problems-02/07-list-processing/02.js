@@ -1,43 +1,35 @@
-const NUMBER_WORDS = {
-  0: "zero",
-  1: "one",
-  2: "two",
-  3: "three",
-  4: "four",
-  5: "five",
-  6: "six",
-  7: "seven",
-  8: "eight",
-  9: "nine",
-  10: "ten",
-  11: "eleven",
-  12: "twelve",
-  13: "thirteen",
-  14: "fourteen",
-  15: "fifteen",
-  16: "sixteen",
-  17: "seventeen",
-  18: "eighteen",
-  19: "nineteen",
-};
+const NUMBER_WORDS = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen",
+];
 
 function alphabeticNumberSort(array) {
-  //   create array with only relevant numbers
-  const filteredArray = [];
-  const pairedArray = Object.entries(NUMBER_WORDS);
-  array.forEach((number) => {
-    if (pairedArray[number]) {
-      filteredArray.push(pairedArray[number]);
-    }
-  });
-  // sort filtered array and convert to number
-  return filteredArray
-    .sort((a, b) => a[1].localeCompare(b[1]))
-    .map((item) => Number(item[0]));
+  return array
+    .map((number) => NUMBER_WORDS[number])
+    .sort()
+    .map((number) => NUMBER_WORDS.indexOf(number));
 }
 
-alphabeticNumberSort([3, 0, 1, 2]); //?
-
+alphabeticNumberSort([0, 19]); //?
 alphabeticNumberSort([
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 ]);
+// [8, 18, 11, 15, 5, 4, 14, 9, 19, 1, 7, 17, 6, 16, 10, 13, 3, 12, 2, 0]
