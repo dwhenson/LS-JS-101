@@ -1,26 +1,15 @@
-// Write a function that takes an array of strings and returns an array of the
-// same string values, but with all vowels (a, e, i, o, u) removed..
-
-// const vowels = "aeiouAEIOU";
-// (!vowels.includes("b")); //?
-
-// function removeVowels(array) {
-//   return array
-//     .map((string) => string.split(""))
-//     .map((letterArray) =>
-//       letterArray.filter((letter) => !vowels.includes(letter)).join("")
-//     );
-// }
-
 function removeVowels(array) {
-  return array.map((string) => string.replace(/[aeiou]/gi, ""));
+  return array.map((word) =>
+    word
+      .split("")
+      .filter((char) => /[^aeiou]/gi.test(char))
+      .join("")
+  );
 }
 
-// removeVowels(["abcde"]); //?
 removeVowels(["abcdefghijklmnopqrstuvwxyz"]); //?
-removeVowels(["green", "YELLOW", "black", "white"]); //?
-removeVowels(["ABC", "AEIOU", "XYZ"]); //?
-
 // ["bcdfghjklmnpqrstvwxyz"]
+removeVowels(["green", "YELLOW", "black", "white"]); //?
 // ["grn", "YLLW", "blck", "wht"]
+removeVowels(["ABC", "AEIOU", "XYZ"]); //?
 // ["BC", "", "XYZ"]

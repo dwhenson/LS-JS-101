@@ -1,5 +1,13 @@
 function multiplyAllPairs(array1, array2) {
-  return;
+  let combined = [];
+
+  array1.forEach((a1Element) => {
+    array2.forEach((a2element) => {
+      combined.push(a1Element * a2element);
+    });
+  });
+
+  return combined.sort((a, b) => a - b); //?
 }
 
 multiplyAllPairs([2, 4], [4, 3, 1, 2]);
