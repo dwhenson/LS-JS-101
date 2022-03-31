@@ -56,8 +56,8 @@ let secondNoun = ["Mix", "Delight", "Bowl", "Chunk", "Surprise", "Bliss"];
 
 // Generate!
 
-let dishName = [...random(adjective), ...random(firstNoun), ...random(secondNoun)];
-let dish = [...random(ingredients, 3), ...random(spices, 2), ...random(extras, 1)];
+let dishName = random(adjective) + random(firstNoun) + random(secondNoun);
+let dish = random(ingredients, 3) + random(spices, 2) + random(extras, 1);
 
 console.log("How about: " + dishName.join(" "));
 console.log("You need: " + dish.join(", "));

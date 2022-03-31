@@ -22,7 +22,7 @@ function completeTasks(n = 1) {
 
   while (todos.length > 0 && tasksComplete < n) {
     console.log(`${todos[0]} complete!`);
-    todos.shift();
+    delete todos[0];
     tasksComplete++;
   }
 
@@ -35,7 +35,7 @@ function completeTasks(n = 1) {
 
 function displayTaskList() {
   console.log(`ToDo list (${todos.length} tasks):`);
-  console.log("---------------------d");
+  console.log("---------------------");
 
   for (let idx = 0; idx < todos.length; idx++) {
     console.log(`-- ${todos[idx]}`);
@@ -44,9 +44,9 @@ function displayTaskList() {
 
 // Utilizing our task manager
 
-// addTask("oil change");
-// addTask("dentist");
-// addTask("homework");
+addTask("oil change");
+addTask("dentist");
+addTask("homework");
 
 completeTasks(3);
 displayTaskList();

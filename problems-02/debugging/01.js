@@ -1,6 +1,4 @@
-let ladder = "";
-
-["head", "heal", "teal", "tell", "tall", "tail"].forEach((word) => {
+let ladder = ""[("head", "heal", "teal", "tell", "tall", "tail")].forEach((word) => {
   if (ladder !== "") {
     ladder += "-";
   }
